@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Calculator2</title>
+	<style>
+		body {
+			background-image:url(img/bg.jpg);
+			background-repeat:no-repeat;
+			background-size:100%
+		}
+		table {
+			width: 300px;
+			height: 400px;
+		}
+		tr {
+			width: 100%;
+			height: 12.5%;
+		}
+		td {
+			width:20%; 	
+		}
+		input {
+			width:100%;
+			height:100%; 
+			
+		}
+		input[name="STR"]{
+			text-align: right;
+		}
+	</style>
+</head>
+<body> 
+
+<table align="center"  border="1px">
+	<tr>
+		<td colspan="5"><input type="text" name="STR" size="20" value="" disabled=""></td>
+	</tr>
+	<tr>
+		<td colspan="5"><input type="text" name="STR" size="20" value="0" disabled=""></td>
+	</tr>
+
+	<tr>
+		<td><input type="button" onclick="func(this);" value="MC" ></td>
+		<td><input type="button" onclick="func(this);" value="MR" ></td>
+		<td><input type="button" onclick="func(this);" value="MS" ></td>
+		<td><input type="button" onclick="func(this);" value="M+" ></td>
+		<td><input type="button" onclick="func(this);" value="M-" ></td>
+	</tr>
+	<tr>
+		<td><input type="button" onclick="func(this);" value="<--" ></td>
+		<td><input type="button" onclick="func(this);" value="CE" ></td>
+		<td><input type="button" onclick="func(this);" value="C" ></td>
+		<td><input type="button" onclick="func(this);" value="+-" ></td>
+		<td><input type="button" onclick="func(this);" value="v" ></td>
+	</tr>
+	<tr>
+		<td><input type="button" onclick="func(this);" value="7" ></td>
+		<td><input type="button" onclick="func(this);" value="8" ></td>
+		<td><input type="button" onclick="func(this);" value="9"></td>
+		<td><input type="button" onclick="func(this);" value="/" ></td>
+		<td><input type="button" onclick="func(this);" value="%"></td>
+	</tr>
+	<tr >
+		<td><input type="button" onclick="func(this);" value="4" ></td>
+		<td><input type="button" onclick="func(this);" value="5" ></td>
+		<td><input type="button" onclick="func(this);" value="6" ></td>
+		<td><input type="button" onclick="func(this);" value="*" ></td>
+		<td><input type="button" onclick="func(this);" value="1/x" ></td>
+	</tr>
+	<tr>
+		<td><input type="button"  onclick="func(this);" value="1" ></td>
+		<td><input type="button" onclick="func(this);" value="2" ></td>
+		<td><input type="button" onclick="func(this);" value="3" ></td>
+		<td><input type="button" onclick="func(this);" value="-" ></td>
+		<td rowspan="2"><input type="button" onclick="func(this);" value="=" ></td>
+	</tr>
+	<tr>
+		<td colspan="2"><input type="button" onclick="func(this);" value="0"  ></td>
+		<td><input type="button" onclick="func(this);" value="," ></td>
+		<td><input type="button" onclick="func(this);" value="+"></td>
+	</tr>
+
+</table>
+<script>
+
+var mass_inp = document.getElementsByName('STR');
+var buff = 0;
+var flag = false;
+var memory = 0;
+var input = document.getElementsByName('STR');
+
+	function func (obj) {
+		console.log(obj.value);
+				
+            switch (obj.value)  {
+            case "CE":
+             			clearEdit ();
+               			console.log(obj.value);
+					break;
+			case "MC": 
+				memory = 0;
+				break;
+			case "MS":
+				memory = parseInt(mass_inp[1].value);
+				break;
+			case "MR": 
+			mass_inp[1].value = memory;
+				break;
+			case "M+": 
+			memory += parseInt(mass_inp[1].value);
+				break;
+			case "M-":
+			memory -= parseInt(mass_inp[1].value);
+				 break;
+			case "<--":
+				if(mass_inp[1].value.length<=1)	{
+					mass_inp[1].value=0;
+				}
+				else{
+					mass_inp[1].value = mass_inp[1].value.substring(0, mass_inp[1].value.length-1);
+				}
+				break;
+			case "C":
+						clearInput();
+               			console.log(obj.value);
+					break;
+
+			case "+":
+				mass_inp[0].value += mass_inp[1].value + " + ";
+				buff = mass_inp[1].value;
+				mass_inp[1].value = "";
+				break;
+			case "-":
+				mass_inp[0].value += mass_inp[1].value + " - ";
+				buff = mass_inp[1].value;
+				mass_inp[1].value = "";
+				break;
+			case "*":
+				mass_inp[0].value += mass_inp[1].value + " * ";
+				buff = mass_inp[1].value;
+				mass_inp[1].value = "";
+				break;
+			case "/":
+				mass_inp[0].value += mass_inp[1].value + " / ";
+				buff = mass_inp[1].value;
+				mass_inp[1].value = "";
+				break;	
+
+			default:
+                     console.log(obj.value);
+					 break;
+			case "1/x":
+				if(parseInt(mass_inp[1].value) !=0){
+					mass_inp[1].value=1/parseInt(mass_inp[1].value);
+
+				}
+					break;
+			case "v":
+				if(parseInt(mass_inp[1].value) > 0){
+					mass_inp[1].value=Math.sqrt(parseInt(mass_inp[1].value));
+
+				}
+					break;		 
+			case "0":
+					if(mass_inp[1].value != "0"){
+						mass_inp[1].value += obj.value;
+					}
+					break;
+			case "+-":
+				mass_inp[1].value=parseInt(mass_inp[1].value)*(-1);
+					break;
+			case "1":
+			case "2":		 
+			case "3":
+			case "4":
+			case "5":
+			case "6":
+			case "7":
+			case "8":
+			case "9":if(mass_inp[1].value == "0"){
+						mass_inp[1].value = obj.value;
+					}
+					else{
+					 mass_inp[1].value += obj.value;
+					}
+					 break;
+             }
+		
+
+	}
+
+	function clearInput (){
+		mass_inp[0].value = "";
+		mass_inp[1].value = "";
+	}//стирает входные значения
+	function clearEdit (){
+		mass_inp[1].value = "";
+	}
+</script>
+</body>
+</html>
